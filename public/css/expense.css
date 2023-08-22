@@ -1,0 +1,51 @@
+.container{
+    background: #000;
+}
+input{
+    margin-bottom: 4px;
+}
+label{
+    font-weight: bold;
+}
+form{
+    margin:auto;
+    width: 60vw;
+}
+ul{
+    border: 2px solid whitesmoke ;
+    box-sizing: border-box;
+    width: 60vw;
+    margin: auto;
+}
+li{
+    width: 50vw;
+    margin: auto;
+    display:flex;
+    margin: 1.2rem;
+    padding: 4px;
+    border: 2px solid wheat;
+    list-style: none;
+    box-sizing: border-box;
+}
+.btn{
+    background-color:rgb(21, 214, 221);
+    color: blue;
+    font-weight: bolder;
+    max-height: 2.5rem;
+    margin-right: 3px;
+
+}
+#submit{
+    background-color: rgb(112, 6, 31);
+    color: white;
+}
+.btn:hover{
+    font-weight: bolder;
+}
+#submit:hover{
+    color: chartreuse;
+    
+}
+body{
+    background-color: rgb(16, 161, 167);
+}

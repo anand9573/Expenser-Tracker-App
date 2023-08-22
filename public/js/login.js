@@ -8,6 +8,7 @@ async function login(e){
         const res=await axios.post('http://localhost:3000/user/login',loginDetails);
         if(res.status===201){
             alert(res.data.message)
+            window.location.href = "http://localhost:3000/expense.html";
         }
     }catch(err){
         const message=async (err)=>{
