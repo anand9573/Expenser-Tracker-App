@@ -1,4 +1,4 @@
-.h1,.container{
+.container{
     background: #000;
 }
 input{
@@ -9,6 +9,7 @@ label{
 }
 form{
     margin-bottom: 10px;
+    border: 12px solid white;
 }
 a{
     color: whitesmoke;

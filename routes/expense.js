@@ -3,11 +3,13 @@ const router=express.Router();
 
 const expenseController=require('../controllers/expense')
 
-router.post('/add-expense',expenseController.postExpense)
+const userauthentication=require('../middleware/authenticate')
 
-router.get('/get-expenses',expenseController.getExpenses)
+router.post('/add-expense',userauthentication.authenticate,expenseController.postExpense)
 
-router.delete('/delete-expense/:id',expenseController.deleteExpense)
+router.get('/get-expenses',userauthentication.authenticate,expenseController.getExpenses)
+
+router.delete('/delete-expense/:id',userauthentication.authenticate,expenseController.deleteExpense)
 
 router.put('/edit-expense/:id',expenseController.editExpense)
 

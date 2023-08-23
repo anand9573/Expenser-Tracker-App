@@ -4,6 +4,8 @@ const bcrypt=require('bcrypt')
 
 const sequelize = require('../util/database');
 
+const jwt=require('jsonwebtoken');
+
 function isInValid(string){
     if(string==undefined || string.length===0){
         return true
@@ -18,8 +20,8 @@ exports.signup=async(req,res,next)=>{
         if(isInValid(name) || isInValid(email) || isInValid(password)){
             return res.status(400).json({err:'Make sure fill all the details'})
         }else{
-            const emailExists = await user.findOne({ where: { email: email } });
-            if (emailExists){
+            const User = await user.findOne({ where: { email: email } });
+            if (User){
                 res.status(200).json("Email already registered");
             }else{
                 const saltrounds=10;
@@ -35,19 +37,23 @@ exports.signup=async(req,res,next)=>{
     }
 }
 
+function generateAccessToken(id,name){
+    return jwt.sign({userid:id,name:name},'6164611lmfgfdkgp2skdkfpad5kpf46496kepeopwemmckeiorepmkdflfell446pewfk8srkfpsps')
+}
+
 exports.login=async(req,res,next)=>{
     try{
         const {email,password}=req.body
         if(isInValid(email) || isInValid(password)){
             return res.status(400).json({message:'Email or password is missing',success:false})
         }
-        const emailExists = await user.findOne({ where: { email: email } });
-        if(emailExists){
-            bcrypt.compare(password,emailExists.password,(err,result)=>{
+        const User = await user.findOne({ where: { email: email } });
+        if(User){
+            bcrypt.compare(password,User.password,(err,result)=>{
                 if(err){
                     throw new Error('something went wrong');
                 }if(result===true){
-                    res.status(201).json({success:true,message:'User logged in successfully'})
+                    res.status(201).json({success:true,message:'User logged in successfully',token:generateAccessToken(User.id,User.name)})
                 }
                 else{
                     res.status(400).json({success:false,message:' * Password is inCorrect'})

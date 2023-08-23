@@ -7,7 +7,9 @@ async function login(e){
         }
         const res=await axios.post('http://localhost:3000/user/login',loginDetails);
         if(res.status===201){
-            alert(res.data.message)
+            alert(res.data.message);
+            console.log(res.data);
+            localStorage.setItem('token',res.data.token);
             window.location.href = "http://localhost:3000/expense.html";
         }
     }catch(err){

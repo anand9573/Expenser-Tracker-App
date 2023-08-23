@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="http://localhost:3000/css/expense.css">
 </head>
 <body>
-    <div class="container bg-dark">
-        <div class="card m-3 p-3 bg-dark text-white" style="font-weight: bold;">
-            <h1 class="m-auto">All Expenses</h1>
-            <form id="form">
+    <div class="container p-2 rounded">
+        <div class="card-body w-50 m-auto">
+            <form id="form" class="form-control bg-dark text-white mb-10">
+                <h5 class="rounded text-center ">All Expenses</h5>
                 <label for="expense" class="form-label">Expense Amount</label>
-            <input type="number" class="addedtext form-control" id="expense">
+            <input type="number" class="form-control" id="expense">
             <label for="descrip" class=" form-label">Description</label>
-            <select class='addedtext form-control mb-2' id="description">
+            <select class='form-control bg-light text-success fw-bold mb-2' id="description">
                 <option>Watch Movie</option>
                 <option>My Fuel is low</option>
                 <option>I need to pay Electricity bill</option>
@@ -25,17 +25,16 @@
                 <option>others</option>
             </select>
             <label for="category" class="form-label">Category</label>
-            <select class='addedtext form-control mb-2' id="category">
+            <select class='form-control bg-light text-success fw-bold mb-2' id="category">
                 <option>Movie</option>
                 <option>Fuel</option>
                 <option>Electricity</option>
                 <option>Food</option>
                 <option>Others</option>
             </select>
-            <input type="submit" id="submit" class="form-control" value="Add Expenses">
+            <button type="submit" id="submit" class="form-control fw-bold text-center">Add Expenses</button>
         </form>
         <ul class="list-group mt-2" id="itemslist">
-
         </ul>
     </div>
 </div>

@@ -2,50 +2,45 @@ const form=document.getElementById('form')
 const des=document.getElementById('description')
 form.addEventListener('submit',storedata)
 function storedata(e){
+    try{
     e.preventDefault();
-    const expenseAmount=e.target.expense.value
-    const description=e.target.description.value;
-    const category=e.target.category.value
-    const obj={
-        expenseAmount,
-        description,
-        category
+    const expensDetails={
+        expenseAmount:e.target.expense.value,
+        description:e.target.description.value,
+        category:e.target.category.value
     }
-const addexpense=async ()=>{
-try{
-    const response=await axios.post('http://localhost:3000/expense/add-expense',obj)
+    const addexpense=async ()=>{
+    const token=localStorage.getItem('token')
+    const response=await axios.post('http://localhost:3000/expense/add-expense',expensDetails,{headers:{"Authorization":token}})
     displaydetails(response.data.newExpenseDetails)
+}
+addexpense()    
 }catch(err){
     console.log(err)
     document.body.innerHTML+='<h4>Something went wrong</h4>'
 }
 } 
-addexpense()    
-} 
-function displaydetails(person){
-document.getElementById('expense').value=''
-document.getElementById('description').value=''
-document.getElementById('category').value=''
+
+function displaydetails(expense){
 const parEle=document.getElementById('itemslist')
-const childEle=document.createElement('li')
-childEle.innerHTML=`Name : ${person.expenseAmount}<br> Email : ${person.description}<br>phone : ${person.category}<button onclick="editExpense(${person.id})" class="edit btn f-e" id="${person.id}">Edit</button>
-<button onclick="deleteExpense(${person.id})" class="delete btn f-e" id="${person.id}">Delete</button>`
-childEle.id=`${person.id}`
-parEle.appendChild(childEle)
+parEle.innerHTML+=`<li id=${expense.id}>Expense Amount : ${expense.expenseAmount}<br> Description : ${expense.description}<br>Category : ${expense.category}<button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
+<button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
 }  
 window.addEventListener('DOMContentLoaded',async()=>{
 try{
-    const response=await axios.get('http://localhost:3000/expense/get-expenses')
-    for(let i=0;i<response.data.allExpenses.length;i++){
-        displaydetails(response.data.allExpenses[i]);
-}
+    const token=localStorage.getItem('token')
+    const response=await axios.get('http://localhost:3000/expense/get-expenses',{headers:{"Authorization":token}});
+    response.data.allExpenses.forEach(element => {
+        displaydetails(element)
+    });
 }catch(err){
 console.log(err)
 } 
 })
 async function deleteExpense(id){
 try{
-    const response=await axios.delete(`http://localhost:3000/expense/delete-expense/${id}`)
+    const token=localStorage.getItem('token')
+    const response=await axios.delete(`http://localhost:3000/expense/delete-expense/${id}`,{headers:{"Authorization":token}})
     console.log(response)
     const child=document.getElementById(id)
     child.remove();
