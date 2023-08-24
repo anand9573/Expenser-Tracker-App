@@ -6,10 +6,12 @@ const bodyParser=require('body-parser');
 
 const userRoutes=require('./routes/user');
 const expenseRoutes=require('./routes/expense');
+const purchaseRoutes=require('./routes/purchase')
 const sequelize = require('./util/database');
 
 const User=require('./model/user');
 const Expense=require('./model/expense');
+const Order=require('./model/orders')
 
 const userController=require('./controllers/user');
 
@@ -24,10 +26,14 @@ app.use(express.static(path.join(__dirname,'/public')));
 app.use(express.static(path.join(__dirname,'/views')));
 
 app.use('/user',userRoutes);
-app.use('/expense',expenseRoutes)
+app.use('/expense',expenseRoutes);
+app.use('/purchase',purchaseRoutes)
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
+
+User.hasMany(Order);
+Order.belongsTo(User);
 
 userController.sync();
 

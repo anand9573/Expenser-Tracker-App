@@ -1,31 +1,28 @@
 {
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.1",
-    "mysql2": "^3.6.0",
-    "nodemon": "^3.0.1",
-    "sequelize": "^6.32.1"
-  },
+  "name": "nodejs-complete-guide",
+  "version": "1.0.0",
+  "description": "Complete Node.js Guide",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
     "start-server": "node app.js"
   },
-  "name": "expense-tracker-app",
-  "version": "1.0.0",
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/anand9573/Expense_Tracker_App.git"
-  },
-  "author": "Bukya Anand Naik",
+  "author": "Maximilian Schwarzmüller",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/anand9573/Expense_Tracker_App/issues"
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   },
-  "homepage": "https://github.com/anand9573/Expense_Tracker_App#readme",
-  "description": ""
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "jsonwebtoken": "^9.0.1",
+    "mysql2": "^3.6.0",
+    "razorpay": "^2.9.2",
+    "sequelize": "^6.32.1"
+  }
 }

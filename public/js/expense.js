@@ -1,5 +1,6 @@
 const form=document.getElementById('form')
-const des=document.getElementById('description')
+const des=document.getElementById('description');
+
 form.addEventListener('submit',storedata)
 function storedata(e){
     try{
@@ -33,6 +34,10 @@ try{
     response.data.allExpenses.forEach(element => {
         displaydetails(element)
     });
+    const premium=localStorage.getItem('premium')
+    // if(premium==='true'){
+    //     document.getElementById('rzp-button1').remove()
+    // }
 }catch(err){
 console.log(err)
 } 
@@ -49,6 +54,7 @@ try{
         console.log(err)
 }
 }  
+
 async function editExpense(id){
 try{
     const response=await axios.put(`http://localhost:3000/expense/edit-expense/${id}`)
@@ -63,3 +69,39 @@ document.getElementById('category').value=response.data.editExpense.category;
         console.log(err)
 }
 }  
+
+document.getElementById('rzp-button1').onclick=async function(e){
+    try{
+        const token=localStorage.getItem('token');
+        const response=await axios.get('http://localhost:3000/purchase/premiummembership',{headers:{"Authorization":token}});
+        console.log(response);
+        var options={
+            "key":response.data.key_id,
+            "order_id":response.data.order.id,
+            "handler":async function(response){
+                await axios.post('http://localhost:3000/purchase/updatetransactionstatus',{
+                    order_id:options.order_id,
+                    payment_id:response.razorpay_payment_id,
+                },{headers:{"Authorization":token} })
+                alert('You are a premium user')
+                remove('rzp-button1')
+            },
+        };
+        const rzp1=new Razorpay(options);
+        await rzp1.open();
+        e.preventDefault();
+
+        rzp1.on('payment.failed',async(response)=>{
+            console.log(response)
+            await rzp1.close()
+            alert('something went wrong')
+});
+    }catch(err){
+        console.log(err)
+    }
+    function remove(id){
+        localStorage.setItem('premium','true')
+        const btn=document.getElementById(id)
+        btn.remove()
+    }
+}
