@@ -1,11 +1,12 @@
 const Razorpay=require('razorpay')
 const Order=require('../model/orders');
+const userController=require('./user')
 
 exports.purchasepremium=async(req,res,next)=>{
     try{
         var rzp = new Razorpay({
-            key_id: 'rzp_test_1elumNyVf2lFRS',
-            key_secret: 'cGEOoJOm8W3RKKkjNx9zIKB9'
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_KEY_SECRET
         })
         const amount=2500;
         rzp.orders.create({amount,currency:"INR"},async(err,order)=>{
@@ -23,16 +24,14 @@ exports.purchasepremium=async(req,res,next)=>{
 
 exports.updatetransactionstatus=async(req,res)=>{
     try{
+        const userid=req.user.id
         const {payment_id,order_id}=req.body;
         const order=await Order.findOne({where:{orderid:order_id}})
-        const promise1=await order.update({paymentid:payment_id,status:'SUCCESSFUL'});
-        const promise2=await req.user.update({ispremiumuser:true});
+        const promise1=order.update({paymentid:payment_id,status:'SUCCESSFUL'});
+        const promise2=req.user.update({ispremiumuser:true});
         await Promise.all([promise1,promise2])
-        res.status(202).json({success:true,message:'Transaction Successful',ispremiumuser:true})
+        res.status(202).json({success:true,message:'Transaction Successful',token:userController.generateAccessToken(userid,undefined,true)})
     }catch(err){
-        const order=await Order.findOne({where:{orderid:order_id}})
-        await order.update({paymentid:payment_id,status:'FAILED'})
-        console.log(err)
-        res.status(403).json({error:err,message:'something went wrong',ispremiumuser:false})
+        res.status(403).json({error:err,message:'something went wrong'});
     }
 }
