@@ -10,29 +10,27 @@ form{
     border: 12px solid white;
 }
 ul{
-    border: 2px solid whitesmoke ;
-    box-sizing: border-box;
-    width: 60vw;
-    margin: auto;
+    width: 50vw;
+}
+#itemslist{
+    list-style: none;
+}
+#premium{
+    list-style-type: decimal-leading-zero;
 }
 li{
-    width: 50vw;
-    margin: auto;
-    margin: 1.2rem;
+    width: 45vw;
+    margin: 0.3rem;
     padding: 4px;
     border: 2px solid wheat;
-    list-style: none;
-    box-sizing: border-box;
     color: rgb(132, 251, 12);
 }
 .btn{
-    background-color:rgb(21, 214, 221);
-    color: blue;
+    background-color:rgb(33, 236, 247);
+    color: rgb(6, 6, 240);
     font-weight: bolder;
-    max-height: 2.5rem;
     margin-right: 3px;
     cursor: pointer;
-
 }
 #submit{
     background-color: rgb(112, 6, 31);

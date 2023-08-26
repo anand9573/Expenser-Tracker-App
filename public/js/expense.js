@@ -29,7 +29,7 @@ async function showLeaderBoard(){
     var LeaderboardEle=document.getElementById('premium');
     LeaderboardEle.innerHTML='<h4 class="text-white p-2">YOU are a Premium User Now<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button>'
     userLeaderBoardArray.data.forEach((userDetails)=>{
-        LeaderboardEle.innerHTML+=`<li>Name-${userDetails.name} Total Expense-${userDetails.totalAmount}</li>`
+        LeaderboardEle.innerHTML+=`<li>Name-${userDetails.name} Total Expense-${userDetails.totalExpenses}</li>`
     })
 }
 
@@ -78,6 +78,7 @@ async function deleteExpense(id){
 try{
     const token=localStorage.getItem('token')
     const response=await axios.delete(`http://localhost:3000/expense/delete-expense/${id}`,{headers:{"Authorization":token}})
+    document.getElementById(id).remove()
     console.log(response)
 
 }catch(err){
