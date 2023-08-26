@@ -42,7 +42,7 @@ function displaydetails(expense){
 function premiumfeature(){
     document.getElementById('rzp-button1').style.visibility='hidden'
     const parent=document.getElementById('premium');
-    parent.innerHTML+=`<h4 class="text-white p-2">YOU are a Premium User Now<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button>`
+    parent.innerHTML+=`<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button><button class="btn fw-bold text-center m-2" onclick="">Daily Expenses</button><button class="btn fw-bold text-center m-2" onclick="">Weekly Expense</button><button class="btn fw-bold text-center m-2" onclick="">Monthly Expenses</button>`
 }
 
 function parseJwt (token) {
