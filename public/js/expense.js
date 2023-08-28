@@ -42,7 +42,7 @@ function displaydetails(expense){
 function premiumfeature(){
     document.getElementById('rzp-button1').style.visibility='hidden'
     const parent=document.getElementById('premium');
-    parent.innerHTML+=`<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button><button class="btn fw-bold text-center m-2" onclick="">Daily Expenses</button><button class="btn fw-bold text-center m-2" onclick="">Weekly Expense</button><button class="btn fw-bold text-center m-2" onclick="">Monthly Expenses</button>`
+    parent.innerHTML+=`<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button>`
 }
 
 function parseJwt (token) {
@@ -102,6 +102,14 @@ document.getElementById('category').value=response.data.editExpense.category;
 }
 }  
 
+function showlistdownload(filesdownloaded){
+    parent=document.getElementById('uldownload');
+    parent.innerHTML=`<h4 class="m-2">Downloaded List</h4>`;
+    filesdownloaded.forEach((ele)=>{
+                parent.innerHTML+=`<li><a href="${ele.fileurl}">myexpense/${ele.createdAt}.csv</a></li>`;
+    })
+}
+
 document.getElementById('rzp-button1').onclick=async function(e){
     try{
         const token=localStorage.getItem('token');
@@ -133,3 +141,23 @@ document.getElementById('rzp-button1').onclick=async function(e){
         console.log(err)
     }
 }
+
+document.getElementById('download').onclick=async function download(){
+    try{
+        const token=localStorage.getItem('token')
+        const res=await axios.get('http://localhost:3000/user/download',{headers:{"Authorization":token} });
+        if(res.status===200){
+            var a=document.createElement('a');
+            a.href=res.data.fileURL;
+            a.download='myexpense.csv';
+            a.click();
+            showlistdownload(res.data.filesdownloaded)
+        }
+        else{
+            throw new Error(res.data.message)
+        }
+    }catch(error){
+        console.log(error)
+}
+}
+

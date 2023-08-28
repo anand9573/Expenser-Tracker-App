@@ -13,7 +13,8 @@ const resetpasswordRoutes=require('./routes/password')
 const User=require('./model/user');
 const Expense=require('./model/expense');
 const Order=require('./model/orders');
-const forgotpassword=require('./model/forgotpassword')
+const forgotpassword=require('./model/forgotpassword');
+const filesDownloaded=require('./model/filesdownloaded')
 
 const userController=require('./controllers/user');
 
@@ -44,7 +45,10 @@ User.hasMany(Order);
 Order.belongsTo(User);
 
 User.hasMany(forgotpassword);
-forgotpassword.belongsTo(User)
+forgotpassword.belongsTo(User);
+
+User.hasMany(filesDownloaded);
+filesDownloaded.belongsTo(User);
 
 userController.sync();
 
