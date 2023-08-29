@@ -40,6 +40,13 @@ async function showLeaderBoard(){
 //     parEle.innerHTML+=`<li id=${expense.id}>Expense Amount : ${expense.expenseAmount}<br> Description : ${expense.description}<br>Category : ${expense.category}<button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
 //     <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
 // }  
+async function updateOutput() {
+    const token=localStorage.getItem('token')
+    const rows = document.getElementById("options").value;
+    let res=await axios.get(`http://localhost:3000/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});
+    showexpenses(res.data.allExpenses);
+    showpagination(res.data)
+}
 
 function premiumfeature(){
     document.getElementById('rzp-button1').style.visibility='hidden'
@@ -72,7 +79,7 @@ try{
     // response.data.allExpenses.forEach(element => {
     //     displaydetails(element)
     // });
-    let res=await axios.get(`http://localhost:3000/expense/get-expenses?page=${page}`,{headers:{"Authorization":token}});
+    let res=await axios.get(`http://localhost:3000/expense/get-expenses?page=${page}&rows=5`,{headers:{"Authorization":token}});
     // const data=await axios.get(`${backendAPI}/expenses?page=${page}`);
     showexpenses(res.data.allExpenses);
     showpagination(res.data)

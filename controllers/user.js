@@ -11,6 +11,10 @@ function isInValid(string) {
     }
 }
 
+function page(e){
+    const page=e.target.page.value
+}
+
 module.exports = {
     signup: async (req, res, next) => {
         try {

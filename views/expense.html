@@ -39,6 +39,17 @@
         <button id="listdownload" >Downloaded List</button>
         <ul class="itemlistul list-group mt-2 text-white d-flex" id="itemslist">
             <h4 class="m-2">Expenses</h4>
+            <div>
+                <label for="page">Rows Per Page :</label>
+                <select id="options" onchange="updateOutput()">
+                    <option value="1"></option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>40</option>
+                    <option>80</option>
+                </select>
+            </div>
             
         </ul>
         <ul id="page" class="list-group"></ul>
