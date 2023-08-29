@@ -34,11 +34,26 @@ exports.postExpense=async(req,res,next)=>{
         res.status(500).json({error:err,success:false}) 
     }
 }
-
+const ITEMS_PER_PAGE=2
 exports.getExpenses=async(req,res,next)=>{
     try{
-        const allexpenses= await req.user.getExpenses()
-        res.status(200).json({allExpenses: allexpenses,success:true});
+        const page=+req.query.page || 1;
+        const totalItems=await expenses.count();
+        const allexpenses= await req.user.getExpenses(
+            {offset:(page-1)*ITEMS_PER_PAGE,
+            limit:ITEMS_PER_PAGE
+        })
+        res.status(200).json({
+            allExpenses: allexpenses,
+            currentPage:page,
+            hasNextPage:ITEMS_PER_PAGE*page<totalItems,
+            nextPage:page+1,
+            hasPreviosPage:page >1,
+            previousPage:page-1,
+            lastPage:page-1,
+            lastPage:Math.ceil(totalItems /ITEMS_PER_PAGE),
+            success:true
+        });
     }catch(err){
         res.sendStatus(500).json({error:err,success:false});
     }

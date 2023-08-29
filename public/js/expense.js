@@ -1,3 +1,5 @@
+// const { default: products } = require("razorpay/dist/types/products");
+
 const form=document.getElementById('form')
 const des=document.getElementById('description');
 
@@ -33,11 +35,11 @@ async function showLeaderBoard(){
     })
 }
 
-function displaydetails(expense){
-    const parEle=document.getElementById('itemslist')
-    parEle.innerHTML+=`<li id=${expense.id}>Expense Amount : ${expense.expenseAmount}<br> Description : ${expense.description}<br>Category : ${expense.category}<button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
-    <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
-}  
+// function displaydetails(expense){
+//     const parEle=document.getElementById('itemslist')
+//     parEle.innerHTML+=`<li id=${expense.id}>Expense Amount : ${expense.expenseAmount}<br> Description : ${expense.description}<br>Category : ${expense.category}<button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
+//     <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
+// }  
 
 function premiumfeature(){
     document.getElementById('rzp-button1').style.visibility='hidden'
@@ -59,20 +61,76 @@ window.addEventListener('DOMContentLoaded',async()=>{
 try{
     const token=localStorage.getItem('token');
     const decodeToken=parseJwt(token);
+    const page=1;
     console.log(decodeToken);
     const premiumuser=decodeToken.ispremiumuser
     if(premiumuser){
         premiumfeature()
         showLeaderBoard()
     }
-    const response=await axios.get('http://localhost:3000/expense/get-expenses',{headers:{"Authorization":token}});
-    response.data.allExpenses.forEach(element => {
-        displaydetails(element)
-    });
+    // const response=await axios.get('http://localhost:3000/expense/get-expenses',{headers:{"Authorization":token}});
+    // response.data.allExpenses.forEach(element => {
+    //     displaydetails(element)
+    // });
+    let res=await axios.get(`http://localhost:3000/expense/get-expenses?page=${page}`,{headers:{"Authorization":token}});
+    // const data=await axios.get(`${backendAPI}/expenses?page=${page}`);
+    showexpenses(res.data.allExpenses);
+    showpagination(res.data)
+
 }catch(err){
 console.log(err)
 } 
 })
+
+function showpagination({
+    currentPage,
+    hasNextPage,
+    nextPage,
+    hasPreviousPage,
+    previousPage,
+    lastPage
+}){
+    const pagination=document.getElementById('page')
+    pagination.innerHTML+='';
+
+    if(hasPreviousPage){
+        const btn2=document.createElement('button');
+        btn2.innerHTML=previousPage
+        btn2.addEventListener('click',()=>getProducts(previousPage))
+        btn2.className='pagination'
+        pagination.appendChild(btn2)
+
+    }
+    const btn1=document.createElement('button');
+        btn1.innerHTML=currentPage
+        btn1.className='pagination'
+        btn1.addEventListener('click',()=>getProducts(currentPage))
+        pagination.appendChild(btn1)
+    if(hasNextPage){
+        const btn3=document.createElement('button');
+        btn3.className='pagination'
+        btn3.innerHTML=nextPage
+        btn3.addEventListener('click',()=>getProducts(nextPage))
+        pagination.appendChild(btn3)
+    }
+}
+
+async function getProducts(page){
+    const token=localStorage.getItem('token')
+    const res=await axios.get(`http://localhost:3000/expense/get-expenses?page=${page}`,{headers:{"Authorization":token}})
+    showexpenses(res.data.allExpenses);
+    showpagination(res.data)
+}
+
+function showexpenses(expense){
+    const parEle=document.getElementById('page')
+    parEle.innerHTML=``
+    expense.forEach((expense)=>{
+        parEle.innerHTML+=`<li id=${expense.id}>${expense.expenseAmount}- ${expense.description}- ${expense.category}   <button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
+        <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
+    })
+
+}
 
 async function deleteExpense(id){
 try{

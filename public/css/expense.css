@@ -43,3 +43,11 @@ li{
     color: chartreuse;
     
 }
+.pagination{
+    width:0.9rem;
+    background-color: rgb(7, 182, 48);
+    cursor: pointer;
+}
+#page{
+    display: flex;
+}
