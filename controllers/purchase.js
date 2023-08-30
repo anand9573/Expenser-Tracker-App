@@ -10,11 +10,11 @@ exports.purchasepremium=async(req,res,next)=>{
         })
         const amount=2500;
         rzp.orders.create({amount,currency:"INR"},async(err,order)=>{
-            if(err){
-                throw new Error(JSON.stringify(err));
+            if(!err){
+                await req.user.createOrder({orderid:order.id,status:'PENDING'});
+                return res.status(201).json({order,key_id:rzp.key_id});
             }
-            await req.user.createOrder({orderid:order.id,status:'PENDING'});
-            res.status(201).json({order,key_id:rzp.key_id});
+            throw new Error('error with razorpay')
         })
     }catch(err){
         console.log(err)

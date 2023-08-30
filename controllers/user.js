@@ -24,13 +24,12 @@ module.exports = {
             } else {
                 const User = await user.findOne({ where: { email: email } });
                 if (User) {
-                    res.status(200).json("Email already registered");
+                    return res.status(200).json("Email already registered");
                 } else {
                     const saltrounds = 10;
                     bcrypt.hash(password, saltrounds, async (err, hash) => {
-                        console.log(err);
                         await user.create({ name, email, password: hash });
-                        res.status(201).json({ message: 'User created successfully' });
+                        return res.status(201).json({ message: 'User created successfully' });
                     });
                 }
             }
@@ -63,11 +62,11 @@ module.exports = {
                             token: module.exports.generateAccessToken(User.id, User.name, User.ispremiumuser)
                         });
                     } else {
-                        res.status(400).json({ success: false, message: 'Email or Password is incorrect' });
+                        return res.status(400).json({ success: false, message: 'Email or Password is incorrect' });
                     }
                 });
             } else {
-                res.status(404).json({ success: false, message: 'User does not exist!' });
+                return res.status(404).json({ success: false, message: 'User does not exist!' });
             }
         } catch (err) {
             res.status(500).json({ success: false, message: err });

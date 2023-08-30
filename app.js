@@ -1,13 +1,13 @@
 const path=require('path');
-const fs=require('fs');
+// const fs=require('fs');
 const express=require('express');
 
 const dotenv=require('dotenv');
 
 dotenv.config();
 
-const helmet=require('helmet');
-const morgan=require('morgan')
+// const helmet=require('helmet');
+// const morgan=require('morgan')
 
 const bodyParser=require('body-parser');
 
@@ -28,15 +28,15 @@ const userController=require('./controllers/user');
 const cors=require('cors');
 const app=express();
 
-const AccessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+// const AccessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
-app.use(morgan('combined', { stream: AccessLogStream }));
+// app.use(morgan('combined', { stream: AccessLogStream }));
 
-app.use(helmet.contentSecurityPolicy({
-    directives: {
-      'script-src': ["'self'", "cdnjs.cloudflare.com"],
-    },
-  }));
+// app.use(helmet.contentSecurityPolicy({
+//     directives: {
+//       'script-src': ["'self'", "cdnjs.cloudflare.com"],
+//     },
+//   }));
 app.use(bodyParser.json({extended:false}));
 
 app.use(cors())

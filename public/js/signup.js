@@ -13,7 +13,7 @@ async function signup(e){
                     const submit=document.getElementById('submit')
                     const h6=document.createElement('h6')
                     h6.textContent+=" * Email already exist";
-                    submit.before(h6)
+                    submit.before(h6);
                     await sleep(4000);
                     h6.remove()
                 }

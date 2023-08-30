@@ -15,7 +15,9 @@ function storedata(e){
     const addexpense=async ()=>{
     const token=localStorage.getItem('token')
     const response=await axios.post('http://localhost:3000/expense/add-expense',expensDetails,{headers:{"Authorization":token}})
-    displaydetails(response.data.newExpenseDetails)
+    displaydetails(response.data.newExpenseDetails);
+    // updateOutput()
+    // showpagination(res.data)
 }
 addexpense()    
 }catch(err){
@@ -35,11 +37,11 @@ async function showLeaderBoard(){
     })
 }
 
-// function displaydetails(expense){
-//     const parEle=document.getElementById('itemslist')
-//     parEle.innerHTML+=`<li id=${expense.id}>Expense Amount : ${expense.expenseAmount}<br> Description : ${expense.description}<br>Category : ${expense.category}<button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
-//     <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
-// }  
+function displaydetails(expense){
+    const parEle=document.getElementById('itemslist')
+    parEle.innerHTML+=`<li id=${expense.id}>-${expense.expenseAmount}-${expense.description}-${expense.category}<button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
+    <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
+}  
 async function updateOutput() {
     const token=localStorage.getItem('token')
     const rows = document.getElementById("options").value;
