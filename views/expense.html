@@ -17,14 +17,8 @@
                 <h5 class="rounded text-center ">All Expenses</h5>
                 <label for="expense" class="form-label">Expense Amount</label>
             <input type="number" class="form-control" id="expense">
-            <label for="descrip" class=" form-label">Description</label>
-            <select class='form-control bg-light text-success fw-bold mb-2' id="description">
-                <option>Watch Movie</option>
-                <option>My Fuel is low</option>
-                <option>I need to pay Electricity bill</option>
-                <option>I am Hungry Food</option>
-                <option>others</option>
-            </select>
+            <label for="description" class=" form-label">Description</label>
+            <input type="text" class='form-control bg-light text-success fw-bold mb-2' id="description">
             <label for="category" class="form-label">Category</label>
             <select class='form-control bg-light text-success fw-bold mb-2' id="category">
                 <option>Movie</option>
@@ -35,13 +29,13 @@
             </select>
             <button type="submit" id="submit" class="form-control fw-bold text-center">Add Expenses</button>
         </form>
-        <button id="rzp-button1">Buy Premium</button>
-        <button id="download" >Download Expense</button>
-        <button id="listdownload" >Downloaded List</button>
+        <button id="rzp-button1" class="btn mb-2">Buy Premium</button>
+        <button id="download" class="btn mb-2">Download Expense</button>
+        <button id="oldownload" class="btn">Downloaded List</button>
         <ul class="itemlistul list-group mt-2 text-white d-flex" id="itemslist">
             <h4 class="m-2">Expenses</h4>
             <div>
-                <label for="page">Rows Per Page :</label>
+                <label for="options">Rows Per Page :</label>
                 <select id="options" onchange="updateOutput()">
                     <option value="1"></option>
                     <option>5</option>
@@ -54,9 +48,8 @@
             
         </ul>
         <ul id="page" class="list-group"></ul>
-        <ul class="list-group mt-2 text-white" id="uldownload">
-            <h4 class="m-2">Downloaded List</h4>
-        </ul>
+        <ol class="list-group mt-2 text-white" id="uldownload">
+        </ol>
         <ol class="list-group mt-2 text-white" id="premium">
         </ol>
     </div>

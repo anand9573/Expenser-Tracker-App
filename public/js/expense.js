@@ -1,5 +1,3 @@
-// const { default: products } = require("razorpay/dist/types/products");
-
 const form=document.getElementById('form')
 const des=document.getElementById('description');
 
@@ -16,6 +14,11 @@ function storedata(e){
     const token=localStorage.getItem('token')
     const response=await axios.post('http://localhost:3000/expense/add-expense',expensDetails,{headers:{"Authorization":token}})
     displaydetails(response.data.newExpenseDetails);
+    const decodeToken=parseJwt(token);
+    const premiumuser=decodeToken.ispremiumuser
+    if(premiumuser){
+        showLeaderBoard()
+    }
     // updateOutput()
     // showpagination(res.data)
 }
@@ -47,7 +50,7 @@ async function updateOutput() {
     const rows = document.getElementById("options").value;
     let res=await axios.get(`http://localhost:3000/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});
     showexpenses(res.data.allExpenses);
-    showpagination(res.data)
+    showpagination(res.data);
 }
 
 function premiumfeature(){
@@ -71,7 +74,6 @@ try{
     const token=localStorage.getItem('token');
     const decodeToken=parseJwt(token);
     const page=1;
-    console.log(decodeToken);
     const premiumuser=decodeToken.ispremiumuser
     if(premiumuser){
         premiumfeature()
@@ -147,6 +149,11 @@ try{
     const response=await axios.delete(`http://localhost:3000/expense/delete-expense/${id}`,{headers:{"Authorization":token}})
     document.getElementById(id).remove()
     console.log(response)
+    const decodeToken=parseJwt(token);
+    const premiumuser=decodeToken.ispremiumuser
+    if(premiumuser){
+        showLeaderBoard()
+    }
 
 }catch(err){
         document.body.innerHTML+='<h4>Something went wrong</h4>'
@@ -171,9 +178,9 @@ document.getElementById('category').value=response.data.editExpense.category;
 
 function showlistdownload(filesdownloaded){
     parent=document.getElementById('uldownload');
-    parent.innerHTML=`<h4 class="m-2">Downloaded List</h4>`;
+    parent.innerHTML=`<h4 class="m-2">Download  List</h4>`;
     filesdownloaded.forEach((ele)=>{
-                parent.innerHTML+=`<li><a href="${ele.fileurl}">myexpense/${ele.createdAt}.csv</a></li>`;
+                parent.innerHTML+=`<li><a href="${ele.fileurl}">myexpense/${new Date()}</a> at ${ele.createdAt}</li>`;
     })
 }
 
@@ -209,7 +216,8 @@ document.getElementById('rzp-button1').onclick=async function(e){
     }
 }
 
-document.getElementById('download').onclick=async function download(){
+
+document.getElementById('download').onclick=async()=>{
     try{
         const token=localStorage.getItem('token')
         const res=await axios.get('http://localhost:3000/user/download',{headers:{"Authorization":token} });
@@ -225,6 +233,22 @@ document.getElementById('download').onclick=async function download(){
         }
     }catch(error){
         console.log(error)
+    }
 }
+
+document.getElementById('oldownload').onclick=async()=>{
+    try{
+        const token=localStorage.getItem('token')
+        const res=await axios.get('http://localhost:3000/user/download',{headers:{"Authorization":token} });
+        if(res.status===200){
+            showlistdownload(res.data.filesdownloaded)
+        }
+        else{
+            throw new Error(res.data.message)
+        }
+    }catch(error){
+        console.log(error)
+    }
 }
+
 
