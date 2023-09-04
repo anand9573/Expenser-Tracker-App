@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/main.css">
-</head>
-<body>
-    <div class="container p-2 rounded">
+    <link rel="stylesheet" href="http://16.171.202.45/css/main.css">
+<body >
+    <div class="container p-2">
         <div class="card-body w-50 m-auto">
             <h3 class="text-white text-center p-1">Expense Tracker App</h3>
-            <form class="form-control bg-dark text-white mb-10" onsubmit="signup(event)" id="form">
-                <h5 class="h4 rounded text-center ">Sign Up</h5>
-                <label for="name" class="form-label">Name</label>
-                <input type="text" id="name" class="form-control bg-light text-success fw-bold" name="name" required>
+            <form class="form-control bg-dark text-white mb-2" onsubmit="login(event)">
+                <h5 class="h4 rounded text-center ">Login</h5>
                 <label class="form-label" for="email">Email</label>
                 <input type="email" class="form-control bg-light text-success fw-bold" id="email" name="email" required>
                 <input type="password" class="form-control my-3 bg-light text-success fw-bold" id="password" name="password" placeholder="Password" required>
-                <button type="submit" class="form-control fw-bold text-center " id="submit">Sign Up</button>
+                <button class="form-control fw-bold text-center" id="submit">Login</button>
             </form>
-                <ul class="text-center border-0 p-0 m-1">
-                    <li style="list-style-type: none;"><a href="./login.html">Existing User-Login</a></li>
-                </ul>
+            <ul class="text-center border-0 p-0 m-1">
+                <li style="list-style-type: none;margin-bottom: 4px;"><a href="./forgotpassword.html">Forgot Password</a></li>
+                <li style="list-style-type: none;"><a href="./signup.html">New User-Sign Up</a></li>
+            </ul>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
-    <script src="../../js/signup.js"></script>
+    <script src="http://16.171.202.45/js/login.js"></script>
 </body>
 </html>

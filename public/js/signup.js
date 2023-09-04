@@ -19,7 +19,7 @@ async function signup(e){
                 }
                 emailExist()
             }else if(response.status===201){
-                window.location.href = "../views/user/login.html";
+                window.location.href = "http://16.171.202.45/user/login.html";
             }
     }catch(err){
         document.body.innerHTML+=`<h3 style='color:red'>${err}</h3>`

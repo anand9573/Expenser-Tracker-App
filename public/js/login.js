@@ -10,7 +10,7 @@ async function login(e){
             alert(res.data.message);
             console.log(res.data);
             localStorage.setItem('token',res.data.token);
-            window.location.href = "../views/user/expense.html";
+            window.location.href = "http://16.171.202.45/user/expense.html";
         }
     }catch(err){
         const message=async (err)=>{

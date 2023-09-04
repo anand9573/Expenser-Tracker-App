@@ -48,7 +48,7 @@ app.use('/premium',premiumFeatureRoutes);
 app.use('/password',resetpasswordRoutes);
 
 app.use((req,res)=>{
-res.sendFile(path.join(__dirname,`public/views/${req.url}`))
+res.sendFile(path.join(__dirname,`public/${req.url}`))
 })
 
 User.hasMany(Expense);
