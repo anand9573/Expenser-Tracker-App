@@ -8,6 +8,6 @@ router.get('/updatepassword/:resetpasswordid',resetpasswordController.updatepass
 
 router.get('/resetpassword/:id',resetpasswordController.resetpassword)
 
-router.use('/forgotpassword',resetpasswordController.forgotpassword)
+router.put('/forgotpassword',resetpasswordController.forgotpassword)
 
 module.exports=router;
