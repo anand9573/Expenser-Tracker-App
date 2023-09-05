@@ -34,7 +34,7 @@ async function showLeaderBoard(){
     const userLeaderBoardArray=await axios.get('http://16.171.202.45/premium/showLeaderBoard',{headers:{"Authorization":token}})
     console.log(userLeaderBoardArray)
     var LeaderboardEle=document.getElementById('premium');
-    LeaderboardEle.innerHTML='<h4 class="text-white p-2">YOU are a Premium User Now<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button>'
+    LeaderboardEle.innerHTML='<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button>'
     userLeaderBoardArray.data.forEach((userDetails)=>{
         LeaderboardEle.innerHTML+=`<li>Name-${userDetails.name} Total Expense-${userDetails.totalExpenses}</li>`
     })
@@ -42,7 +42,25 @@ async function showLeaderBoard(){
 
 function displaydetails(expense){
     const parEle=document.getElementById('itemslist')
-    parEle.innerHTML+=`<li id=${expense.id}>-${expense.expenseAmount}-${expense.description}-${expense.category}<button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
+    parEle.innerHTML+=`<li id=${expense.id}>-${expense.expenseAmount}-${expense.description}-${expense.category}
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Expense Amount</th>
+      <th scope="col">Description</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+  <tr>
+      <th scope="row">3</th>
+      <td>${expense.expenseAmount}</td>
+      <td>${expense.description}</td>
+      <td>${expense.category}</td>
+    </tr>
+  </tbody>
+</table>
+  <button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
     <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
 }  
 async function updateOutput() {
