@@ -1,14 +1,5 @@
 
 async function resetpassword(e){
-    try{
-        e.preventDefault();
-        const res=await axios.get(`http://16.171.202.45/password/updatepassword/${id}`,resetpassword);
-        if(res.status===200){
-            message(res);
-        }
-    }catch(err){
-        message(err)
-    }
     const message=async (msg)=>{
         const sleep = m => new Promise(r => setTimeout(r, m))
         const submit=document.getElementById('submit')
@@ -20,5 +11,14 @@ async function resetpassword(e){
         submit.before(h6)
         await sleep(4000);
         h6.remove()
+    }
+    try{
+        e.preventDefault();
+        const res=await axios.get(`http://16.171.202.45/password/updatepassword/${id}`,resetpassword);
+        if(res.status===200){
+            message(res);
+        }
+    }catch(err){
+        message(err)
     }
 }

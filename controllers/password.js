@@ -61,7 +61,8 @@ exports.resetpassword = async(req, res) => {
     const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id }})
         if(res){
             await forgotpasswordrequest.update({ active: false});
-            res.redirect(200, 'http://16.171.202.45/resetpassword.html');
+            res.redirect('http://16.171.202.45/resetpassword.html');
+            res.status(200).json({success:true},{message:''})
         }
     }
 
