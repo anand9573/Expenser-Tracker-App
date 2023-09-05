@@ -2,6 +2,7 @@
 
 async function setpassword(e){
     try{
+        e.preventDefault();
         const resetpassword={
             email:e.target.email.value,
         }
