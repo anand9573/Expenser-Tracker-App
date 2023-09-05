@@ -8,7 +8,7 @@ const Forgotpassword = require('../model/forgotpassword');
 
 exports.forgotpassword = async (req, res) => {
     try {
-        const { email } = req.params;
+        const { email } = req.body;
         const user = await User.findOne({ where: { email } });
         if (user) {
             const client=Sib.ApiClient.instance
@@ -29,7 +29,7 @@ exports.forgotpassword = async (req, res) => {
                 sender,
                 to: receivers,
                 subject:'Reset Password',
-                htmlContent:`<h1>Expense Tracker App</h1><p>Hi there! Reset the Expense Tracker APP password for your account with email</p><a href="http://localhost:3000/password/resetpassword/{{params.role}}">Reset Password</a>`,
+                htmlContent:`<h1>Expense Tracker App</h1><p>Hi there! Reset the Expense Tracker APP password for your account with email</p><a href="http://16.171.202.45/password/resetpassword/{{params.role}}">Reset Password</a>`,
                 params:{
                     role:id
                 }
