@@ -19,8 +19,6 @@ function storedata(e){
     if(premiumuser){
         showLeaderBoard()
     }
-    // updateOutput()
-    // showpagination(res.data)
 }
 addexpense()    
 }catch(err){
@@ -36,7 +34,17 @@ async function showLeaderBoard(){
     var LeaderboardEle=document.getElementById('premium');
     LeaderboardEle.innerHTML='<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button>'
     userLeaderBoardArray.data.forEach((userDetails)=>{
-        LeaderboardEle.innerHTML+=`<li>Name-${userDetails.name} Total Expense-${userDetails.totalExpenses}</li>`
+        LeaderboardEle.innerHTML+=`<table class="table-responsive table-borderless table-striped">
+        <thead class="thead-dark text-white">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Total Expenses</th>
+          </tr>
+        </thead>
+        <tbody id="tbody" class="table-dark fw-bold text-primary">
+        </tbody>
+    </table>
+        Name-${userDetails.name} Total Expense-${userDetails.totalExpenses}</li>`
     })
 }
 
