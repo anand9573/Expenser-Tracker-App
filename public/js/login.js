@@ -7,8 +7,6 @@ async function login(e){
         }
         const res=await axios.post('http://16.171.202.45/user/login',loginDetails);
         if(res.status===201){
-            alert(res.data.message);
-            console.log(res.data);
             localStorage.setItem('token',res.data.token);
             window.location.href = "http://16.171.202.45/user/expense.html";
         }

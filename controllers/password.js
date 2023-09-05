@@ -61,19 +61,7 @@ exports.resetpassword = async(req, res) => {
     const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id }})
         if(res){
             await forgotpasswordrequest.update({ active: false});
-            res.status(200).send(`<html><script>
-                                            function formsubmitted(e){
-                                            e.preventDefault();
-                                            console.log('called')
-                                        }</script><form action="/password/updatepassword/${id}" method="get">
-                                        <label for="newpassword">Enter New password</label>
-                                        <input name="newpassword" type="password" required></input>
-                                        <button>reset password</button>
-                                    </form>
-                                </html>`
-                                )
-            res.end()
-
+            res.redirect(200, 'http://16.171.202.45/resetpassword.html');
         }
     }
 
