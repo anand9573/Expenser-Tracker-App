@@ -41,27 +41,15 @@ async function showLeaderBoard(){
 }
 
 function displaydetails(expense){
-    const parEle=document.getElementById('itemslist')
-    parEle.innerHTML+=`<li id=${expense.id}>-${expense.expenseAmount}-${expense.description}-${expense.category}
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">S.No</th>
-      <th scope="col">Expense Amount</th>
-      <th scope="col">Description</th>
-      <th scope="col">Category</th>
-    </tr>
-  </thead>
-  <tr>
-      <th scope="row">3</th>
+    const parEle=document.getElementById('tbody')
+    parEle.innerHTML+=`
+  <tr id=${expense.id}>
       <td>${expense.expenseAmount}</td>
       <td>${expense.description}</td>
       <td>${expense.category}</td>
-    </tr>
-  </tbody>
-</table>
-  <button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
-    <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
+      <td><button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></td>
+      <td><button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button></td>
+    </tr>`
 }  
 async function updateOutput() {
     const token=localStorage.getItem('token')
@@ -97,14 +85,9 @@ try{
         premiumfeature()
         showLeaderBoard()
     }
-    // const response=await axios.get('http://16.171.202.45/expense/get-expenses',{headers:{"Authorization":token}});
-    // response.data.allExpenses.forEach(element => {
-    //     displaydetails(element)
-    // });
     let res=await axios.get(`http://16.171.202.45/expense/get-expenses?page=${page}&rows=5`,{headers:{"Authorization":token}});
-    // const data=await axios.get(`${backendAPI}/expenses?page=${page}`);
     showexpenses(res.data.allExpenses);
-    showpagination(res.data)
+    showpagination(res.data);
 
 }catch(err){
 console.log(err)
@@ -152,11 +135,17 @@ async function getProducts(page){
 }
 
 function showexpenses(expense){
-    const parEle=document.getElementById('page')
+    const parEle=document.getElementById('tbody')
     parEle.innerHTML=``
     expense.forEach((expense)=>{
-        parEle.innerHTML+=`<li id=${expense.id}>${expense.expenseAmount}- ${expense.description}- ${expense.category}   <button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button>
-        <button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></li>`
+        parEle.innerHTML+=`
+        <tr id=${expense.id}>
+            <td>${expense.expenseAmount}</td>
+            <td>${expense.description}</td>
+            <td>${expense.category}</td>
+            <td><button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">&#x1F5D1;</button></td>
+            <td><button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button></td>
+        </tr>`
     })
 
 }
