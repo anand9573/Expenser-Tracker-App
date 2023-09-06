@@ -29,7 +29,7 @@ exports.forgotpassword = async (req, res) => {
                 sender,
                 to: receivers,
                 subject:'Reset Password',
-                htmlContent:`<h1>Expense Tracker App</h1><p>Hi there! Reset the Expense Tracker APP password for your account with email</p><a href="http://16.171.202.45/password/resetpassword/{{params.role}}">Reset Password</a>`,
+                htmlContent:`<h1>Expense Tracker App</h1><p>Hi there! Reset the Expense Tracker APP password for your account with email</p><a href="http://16.171.202.45/password/resetpassword/{{params.role}}">Reset Password</a><hr><hr><p>If reset password is not requested by you then contact us Immediately at dummy@gmail.com</p>`,
                 params:{
                     role:id
                 }
@@ -56,13 +56,18 @@ exports.forgotpassword = async (req, res) => {
 };
 
 exports.resetpassword = async(req, res) => {
-    const id =  req.params.id;
-    const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id }})
-        if(res){
-            await forgotpasswordrequest.update({ active: false});
-            res.redirect('http://16.171.202.45/resetpassword.html');
-            res.status(200).json({success:true},{message:''})
-        }
+    try{
+
+        const id =  req.params.id;
+        const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id }})
+            if(res){
+                await forgotpasswordrequest.update({ active: false});
+                res.redirect('http://16.171.202.45/resetpassword.html');
+                res.status(200).json({success:true},{message:'Reset Password Link Sent Successfully'})
+            }
+    }catch(err){
+        res.status(500).json({ message: err, success: false });
+    }
     }
 
 exports.updatepassword =async(req, res) => {
@@ -82,6 +87,6 @@ exports.updatepassword =async(req, res) => {
                     };
         }
         catch(error){
-        res.status(403).json({ error, success: false } )
+        res.status(500).json({ message:error, success: false } )
         }
     }

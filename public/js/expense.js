@@ -59,7 +59,8 @@ function displaydetails(expense){
       <td><button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button></td>
     </tr>`
 }  
-async function updateOutput() {
+async function updateOutput(e) {
+    const page=e.target.page.value
     const token=localStorage.getItem('token')
     const rows = document.getElementById("options").value;
     let res=await axios.get(`http://16.171.202.45/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});
@@ -151,7 +152,7 @@ function showexpenses(expense){
             <td>${expense.expenseAmount}</td>
             <td>${expense.description}</td>
             <td>${expense.category}</td>
-            <td><button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">&#x1F5D1;</button></td>
+            <td><button onclick="deleteExpense(${expense.id})" class="delete btn f-e" id="${expense.id}">Delete</button></td>
             <td><button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button></td>
         </tr>`
     })
