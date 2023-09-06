@@ -32,19 +32,22 @@ async function showLeaderBoard(){
     const userLeaderBoardArray=await axios.get('http://16.171.202.45/premium/showLeaderBoard',{headers:{"Authorization":token}})
     console.log(userLeaderBoardArray)
     var LeaderboardEle=document.getElementById('premium');
-    LeaderboardEle.innerHTML='<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button>'
+    LeaderboardEle.innerHTML=`<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button><table class="table-responsive table-bordered table-striped">
+    <thead class="thead-dark text-white">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Total Expenses</th>
+      </tr>
+    </thead>
+    <tbody id="tbodylead" class="table-dark fw-bold text-primary">
+    </tbody>
+    </table>`
     userLeaderBoardArray.data.forEach((userDetails)=>{
-        LeaderboardEle.innerHTML+=`<table class="table-responsive table-borderless table-striped">
-        <thead class="thead-dark text-white">
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Total Expenses</th>
-          </tr>
-        </thead>
-        <tbody id="tbody" class="table-dark fw-bold text-primary">
-        </tbody>
-    </table>
-        Name-${userDetails.name} Total Expense-${userDetails.totalExpenses}</li>`
+        document.getElementById(tbodylead).innerHTML+=`
+        <tr>
+      <td>${userDetails.name}</td>
+      <td>${userDetails.totalExpenses}</td>
+    </tr>`
     })
 }
 
@@ -59,8 +62,8 @@ function displaydetails(expense){
       <td><button onclick="editExpense(${expense.id})" class="edit btn f-e" id="${expense.id}">Edit</button></td>
     </tr>`
 }  
-async function updateOutput(e) {
-    const page=e.target.page.value
+async function updateOutput() {
+    const page=document.getElementById('options').value;
     const token=localStorage.getItem('token')
     const rows = document.getElementById("options").value;
     let res=await axios.get(`http://16.171.202.45/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});
@@ -194,9 +197,22 @@ document.getElementById('category').value=response.data.editExpense.category;
 
 function showlistdownload(filesdownloaded){
     parent=document.getElementById('uldownload');
-    parent.innerHTML=`<h4 class="m-2">Download  List</h4>`;
+    parent.innerHTML=`<h4 class="m-2">Download  List</h4><table class="table-responsive table-bordered table-striped">
+    <thead class="thead-dark text-white">
+      <tr>
+        <th scope="col">Downloaded File</th>
+        <th scope="col">Date At</th>
+      </tr>
+    </thead>
+    <tbody id="tbodydown" class="table-dark fw-bold text-primary">
+    </tbody>
+    </table>`;
     filesdownloaded.forEach((ele)=>{
-                parent.innerHTML+=`<li><a href="${ele.fileurl}">myexpense/${new Date()}</a> at ${ele.createdAt}</li>`;
+                document.getElementById('tbodydown').innerHTML+=`<tr>
+                <td><a href="${ele.fileurl}">myexpense/${new Date()}</a></td>
+                <td>${ele.createdAt}</td>
+                <td>${expense.category}</td>
+            </tr>`;
     })
 }
 
@@ -224,7 +240,6 @@ document.getElementById('rzp-button1').onclick=async function(e){
         e.preventDefault();
 
         rzp1.on('payment.failed',async(response)=>{
-            console.log(response)
             alert('something went wrong')
 });
     }catch(err){
