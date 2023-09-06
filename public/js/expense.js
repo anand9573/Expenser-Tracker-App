@@ -43,7 +43,7 @@ async function showLeaderBoard(){
     </tbody>
     </table>`
     userLeaderBoardArray.data.forEach((userDetails)=>{
-        document.getElementById(tbodylead).innerHTML+=`
+        document.getElementById('tbodylead').innerHTML+=`
         <tr>
       <td>${userDetails.name}</td>
       <td>${userDetails.totalExpenses}</td>
@@ -204,14 +204,13 @@ function showlistdownload(filesdownloaded){
         <th scope="col">Date At</th>
       </tr>
     </thead>
-    <tbody id="tbodydown" class="table-dark fw-bold text-primary">
+    <tbody id="tbodydown" class="tbody-dark fw-bold text-primary">
     </tbody>
     </table>`;
     filesdownloaded.forEach((ele)=>{
                 document.getElementById('tbodydown').innerHTML+=`<tr>
                 <td><a href="${ele.fileurl}">myexpense/${new Date()}</a></td>
                 <td>${ele.createdAt}</td>
-                <td>${expense.category}</td>
             </tr>`;
     })
 }
