@@ -22,7 +22,6 @@ async function signup(e){
                 window.location.href = "http://16.171.202.45/user/login.html";
             }
     }catch(err){
-        document.body.innerHTML+=`<h3 style='color:red'>${err}</h3>`
-        console.log(err)
+        document.body.innerHTML+=`<h3 style='color:red'>something went wrong try after sometime</h3>`
     }
 }

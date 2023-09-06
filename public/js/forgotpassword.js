@@ -12,7 +12,6 @@ async function setpassword(e){
             h5.textContent+=`Reset Password link Sent to Your Registered Email Successfully`
             h5.style.color='green';
             submit.before(h5)
-            // alert('Reset Password link Sent to Your Registered Email Successfully')
         }
     }catch(err){
         const message=async (err)=>{

@@ -32,7 +32,7 @@
             <h4 class="m-2">Expenses</h4>
             <div>
                 <label for="options">Rows Per Page :</label>
-                <select id="options" onchange="updateOutput(event)">
+                <select id="options" name="page" onchange="updateOutput(event)">
                     <option value="2"></option>
                     <option>5</option>
                     <option>10</option>
@@ -51,7 +51,7 @@
                     <th scope="col">Edit</th>
                   </tr>
                 </thead>
-                <tbody id="tbody" class="table-dark fw-bold text-primary">
+                <tbody id="tbody" class="tbody-dark fw-bold text-primary">
                 </tbody>
             </table>
         </ul>

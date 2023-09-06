@@ -60,13 +60,14 @@ exports.resetpassword = async(req, res) => {
 
         const id =  req.params.id;
         const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id }})
-            if(res){
+            if(forgotpasswordrequest){
+                alert('link verified successfully.Now You Can Change password')
                 await forgotpasswordrequest.update({ active: false});
                 res.redirect('http://16.171.202.45/resetpassword.html');
                 res.status(200).json({success:true},{message:'Reset Password Link Sent Successfully'})
             }
     }catch(err){
-        res.status(500).json({ message: err, success: false });
+        res.status(500).json({ message: 'link expired or not valid', success: false });
     }
     }
 

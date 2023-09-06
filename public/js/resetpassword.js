@@ -14,11 +14,11 @@ async function resetpassword(e){
         submit.before(h5)
         }
     }catch(err){
-        const message=async (msg)=>{
+        const message=async(err)=>{
             const sleep = m => new Promise(r => setTimeout(r, m))
             const submit=document.getElementById('submit')
             const h6=document.createElement('h6')
-            h6.textContent+=`${msg.response.data.message}`
+            h6.textContent+=`Something went wrong try after some time!`
             submit.before(h6)
             await sleep(4000);
             h6.remove()
