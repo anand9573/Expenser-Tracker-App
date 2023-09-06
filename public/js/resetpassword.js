@@ -11,6 +11,9 @@ async function resetpassword(e){
     }
     try{
         e.preventDefault();
+        const resetpassword={
+            newpassword:e.target.newpassword.value,
+        }
         const res=await axios.get(`http://16.171.202.45/password/updatepassword/${id}`,resetpassword);
         if(res.status===200){
             const submit=document.getElementById('submit')
