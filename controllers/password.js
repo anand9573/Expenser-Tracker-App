@@ -8,7 +8,7 @@ const Forgotpassword = require('../model/forgotpassword');
 
 exports.forgotpassword = async (req, res) => {
     try {
-        const  email= req.query.email;
+        const  email= req.body.email;
         const user = await User.findOne({ where: { email } });
         if (user) {
             const client=Sib.ApiClient.instance
