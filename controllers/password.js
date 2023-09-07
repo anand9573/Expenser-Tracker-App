@@ -8,7 +8,7 @@ const Forgotpassword = require('../model/forgotpassword');
 
 exports.forgotpassword = async (req, res) => {
     try {
-        const  email= req.body.email;
+        const  email= req.params.email;
         const user = await User.findOne({ where: { email } });
         if (user) {
             const client=Sib.ApiClient.instance
@@ -20,7 +20,7 @@ exports.forgotpassword = async (req, res) => {
             }
             const receivers=[
                 {
-                email:req.body.email
+                email:req.params.email
                 },
             ]
             const id = uuid.v4();
@@ -51,7 +51,7 @@ exports.forgotpassword = async (req, res) => {
             res.status(200).json({ message: 'Password reset link sent to your email', success: true });
         }
     } catch (err) {
-        res.status(500).json({ message: 'An error occurred', success: false });
+        res.status(500).json({ message: 'Email not exist', success: false });
     }
 };
 
@@ -88,6 +88,6 @@ exports.updatepassword =async(req, res) => {
                     };
         }
         catch(error){
-        res.status(500).json({ message:error, success: false } )
+        res.status(500).json({ message:'Something went wrong', success: false } )
         }
     }
