@@ -39,7 +39,7 @@ async function showLeaderBoard(){
         <th scope="col">Total Expenses</th>
       </tr>
     </thead>
-    <tbody id="tbodylead" class="table-dark fw-bold text-primary">
+    <tbody id="tbodylead" class="tbody-dark fw-bold text-primary">
     </tbody>
     </table>`
     userLeaderBoardArray.data.forEach((userDetails)=>{
@@ -63,7 +63,6 @@ function displaydetails(expense){
     </tr>`
 }  
 async function updateOutput() {
-    const page=document.getElementById('options').value;
     const token=localStorage.getItem('token')
     const rows = document.getElementById("options").value;
     let res=await axios.get(`http://16.171.202.45/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});

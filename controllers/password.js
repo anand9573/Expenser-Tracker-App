@@ -59,7 +59,7 @@ exports.resetpassword = async(req, res) => {
     try{
 
         const id =  req.params.id;
-        const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id }})
+        const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id,active:true }})
             if(forgotpasswordrequest){
                 alert('link verified successfully.Now You Can Change password')
                 await forgotpasswordrequest.update({ active: false});
