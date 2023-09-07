@@ -5,7 +5,9 @@ async function resetpassword(e){
         const resetpassword={
             newpassword:e.target.newpassword.value,
         }
-        const res=await axios.get(`http://16.171.202.45/password/updatepassword/${window.location.search.id}`,resetpassword);
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const res=await axios.get(`http://16.171.202.45/password/updatepassword/${id}`,resetpassword);
         if(res.status===200){
             const submit=document.getElementById('submit')
         const h5=document.createElement('h5')
