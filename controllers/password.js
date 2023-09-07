@@ -66,7 +66,7 @@ exports.resetpassword = async(req, res) => {
                 //     const id = req.query.id;
                 //     res.redirect(`http://someurl/resetpassword.html/?id=${id}`);
                 //   });
-                res.redirect(`http://16.171.202.45/resetpassword.html?id=${id}`);
+                res.redirect(`http://16.171.202.45/resetpassword.html/?id=${id}`);
                 res.status(200).json({success:true,message:'Reset Password Link Sent Successfully'})
             }
     }catch(err){
