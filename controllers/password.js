@@ -66,7 +66,35 @@ exports.resetpassword = async(req, res) => {
                 //     const id = req.query.id;
                 //     res.redirect(`http://someurl/resetpassword.html/?id=${id}`);
                 //   });
-                res.redirect(`http://16.171.202.45/resetpassword.html/?id=${id}`);
+                res.redirect(`<!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Reset password</title>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+                    <link rel="stylesheet" href="http://16.171.202.45/css/main.css">
+                <body >
+                    <div class="container p-2">
+                        <div class="card-body w-50 m-auto">
+                            <h3 class="text-white text-center p-1">Expense Tracker App</h3>
+                            <form onsubmit="resetpassword(event,${id})" class="form-control bg-dark text-white mb-2">
+                                <h5 class="h4 rounded text-center ">Reset Password</h5>
+                                <label for="newpassword" class="form-label">Enter New password</label>
+                                <input name="newpassword" type="password" id="newpassword" class="form-control bg-light text-success fw-bold mb-3" required></input>
+                                <button class="form-control fw-bold text-center" type="submit" id="submit">Change Password</button>
+                                </form>
+                            </form>
+                            <ul class="text-center border-0 p-0 m-1">
+                                <li style="list-style-type: none;margin-bottom: 3px;"><a href="http://16.171.202.45/user/signup.html">New User-Sign Up</a></li>
+                                <li style="list-style-type: none;"><a href="http://16.171.202.45/user/login.html">Exisiting User-Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+                    <script src="http://16.171.202.45/js/resetpassword.js"></script>
+                </body>
+                </html>`);
                 res.status(200).json({success:true,message:'Reset Password Link Sent Successfully'})
             }
     }catch(err){
