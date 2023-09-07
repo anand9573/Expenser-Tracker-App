@@ -66,7 +66,7 @@ exports.resetpassword = async(req, res) => {
                 res.status(200).json({success:true},{message:'Reset Password Link Sent Successfully'})
             }
     }catch(err){
-        res.status(500).json({ message: 'link expired or not valid', success: false });
+        res.status(500).json({ message: err, success: false });
     }
     }
 
@@ -81,7 +81,7 @@ exports.updatepassword =async(req, res) => {
                     bcrypt.genSalt(saltRounds, function(err, salt) {
                         bcrypt.hash(newpassword, salt, async(err, hash)=>{
                             await user.update({ password: hash })
-                                res.status(201).json({message: 'Successfuly update the new password'})
+                                res.status(201).json({message: 'Successfuly update the new password',success:true})
                             })
                         });
                     };
