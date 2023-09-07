@@ -66,7 +66,7 @@ exports.resetpassword = async(req, res) => {
                 //     const id = req.query.id;
                 //     res.redirect(`http://someurl/resetpassword.html/?id=${id}`);
                 //   });
-                res.sendFile(`<!DOCTYPE html>
+                res.status(200).sendFile(`<!DOCTYPE html>
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
@@ -95,7 +95,7 @@ exports.resetpassword = async(req, res) => {
                     <script src="http://16.171.202.45/js/resetpassword.js"></script>
                 </body>
                 </html>`);
-                res.status(200).json({success:true,message:'Reset Password Link Sent Successfully'})
+                
             }
     }catch(err){
         res.status(500).json({ message: err, success: false });
