@@ -1,10 +1,12 @@
 
-async function resetpassword(e,id){
+async function resetpassword(e){
     try{
         e.preventDefault();
         const resetpassword={
             newpassword:e.target.newpassword.value,
         }
+        const id=e.target.id.value
+        console.log(id);
         // const urlParams = new URLSearchParams(window.location.search);
         // const id = urlParams.get('id');
         const res=await axios.get(`http://16.171.202.45/password/updatepassword/${id}`,resetpassword);

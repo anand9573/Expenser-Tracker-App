@@ -78,9 +78,10 @@ exports.resetpassword = async(req, res) => {
                     <div class="container p-2">
                         <div class="card-body w-50 m-auto">
                             <h3 class="text-white text-center p-1">Expense Tracker App</h3>
-                            <form onsubmit="resetpassword(event,${id})" class="form-control bg-dark text-white mb-2">
+                            <form onsubmit="resetpassword(event)" class="form-control bg-dark text-white mb-2">
                                 <h5 class="h4 rounded text-center ">Reset Password</h5>
                                 <label for="newpassword" class="form-label">Enter New password</label>
+                                <input name="id" type="hidden" value="${id}" class="form-control bg-light text-success fw-bold mb-3" required></input>
                                 <input name="newpassword" type="password" id="newpassword" class="form-control bg-light text-success fw-bold mb-3" required></input>
                                 <button class="form-control fw-bold text-center" type="submit" id="submit">Change Password</button>
                                 </form>
@@ -95,6 +96,7 @@ exports.resetpassword = async(req, res) => {
                     <script src="http://16.171.202.45/js/resetpassword.js"></script>
                 </body>
                 </html>`);
+                res.end();
                 
             }
     }catch(err){
