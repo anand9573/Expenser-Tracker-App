@@ -66,7 +66,7 @@ exports.resetpassword = async(req, res) => {
                 //     const id = req.query.id;
                 //     res.redirect(`http://someurl/resetpassword.html/?id=${id}`);
                 //   });
-                res.status(200).sendFile(`<!DOCTYPE html>
+                res.status(200).send(`<!DOCTYPE html>
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
