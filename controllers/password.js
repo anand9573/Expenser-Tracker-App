@@ -123,7 +123,7 @@ exports.updatepassword =async(req, res) => {
                     bcrypt.genSalt(saltRounds, function(err, salt) {
                         bcrypt.hash(newpassword, salt, async(err, hash)=>{
                             await user.update({ password: hash })
-                                res.status(200).send('<h2>')
+                                res.status(200).send('<h2>Password Changed Successfully</h2>');
                             })
                         });
                     };

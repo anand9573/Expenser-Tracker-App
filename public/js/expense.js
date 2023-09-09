@@ -88,6 +88,8 @@ function parseJwt (token) {
 
 window.addEventListener('DOMContentLoaded',async()=>{
 try{
+    // const objUrlParams= new URLSearchParams(window.location.search);
+    // const page=objUrlParams.get('page') || 1;
     const token=localStorage.getItem('token');
     const decodeToken=parseJwt(token);
     const page=1;
@@ -114,7 +116,7 @@ function showpagination({
     lastPage
 }){
     const pagination=document.getElementById('page')
-    pagination.innerHTML+='';
+    pagination.innerHTML='';
 
     if(hasPreviousPage){
         const btn2=document.createElement('button');

@@ -51,7 +51,6 @@ exports.getExpenses=async(req,res,next)=>{
             nextPage:page+1,
             hasPreviosPage:page >1,
             previousPage:page-1,
-            lastPage:page-1,
             lastPage:Math.ceil(totalItems /rows),
             success:true
         });
