@@ -67,7 +67,7 @@ async function updateOutput() {
     const rows = document.getElementById("options").value;
     let res=await axios.get(`http://16.171.202.45/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});
     showexpenses(res.data.allExpenses);
-    showpagination(res.data);
+    showpagination(res.data,rows);
 }
 
 function premiumfeature(){
@@ -88,8 +88,6 @@ function parseJwt (token) {
 
 window.addEventListener('DOMContentLoaded',async()=>{
 try{
-    // const objUrlParams= new URLSearchParams(window.location.search);
-    // const page=objUrlParams.get('page') || 1;
     const token=localStorage.getItem('token');
     const decodeToken=parseJwt(token);
     const page=1;
@@ -100,7 +98,7 @@ try{
     }
     let res=await axios.get(`http://16.171.202.45/expense/get-expenses?page=${page}&rows=5`,{headers:{"Authorization":token}});
     showexpenses(res.data.allExpenses);
-    showpagination(res.data);
+    showpagination(res.data,5);
 
 }catch(err){
 console.log(err)
@@ -114,14 +112,14 @@ function showpagination({
     hasPreviousPage,
     previousPage,
     lastPage
-}){
+},rows){
     const pagination=document.getElementById('page')
     pagination.innerHTML='';
 
     if(hasPreviousPage){
         const btn2=document.createElement('button');
         btn2.innerHTML=previousPage
-        btn2.addEventListener('click',()=>getProducts(previousPage))
+        btn2.addEventListener('click',()=>getProducts(previousPage,rows))
         btn2.className='pagination'
         pagination.appendChild(btn2)
 
@@ -129,22 +127,22 @@ function showpagination({
     const btn1=document.createElement('button');
         btn1.innerHTML=currentPage
         btn1.className='pagination'
-        btn1.addEventListener('click',()=>getProducts(currentPage))
+        btn1.addEventListener('click',()=>getProducts(currentPage,rows))
         pagination.appendChild(btn1)
     if(hasNextPage){
         const btn3=document.createElement('button');
         btn3.className='pagination'
         btn3.innerHTML=nextPage
-        btn3.addEventListener('click',()=>getProducts(nextPage))
+        btn3.addEventListener('click',()=>getProducts(nextPage,rows))
         pagination.appendChild(btn3)
     }
 }
 
-async function getProducts(page){
+async function getProducts(page,rows){
     const token=localStorage.getItem('token')
-    const res=await axios.get(`http://16.171.202.45/expense/get-expenses?page=${page}`,{headers:{"Authorization":token}})
+    const res=await axios.get(`http://16.171.202.45/expense/get-expenses?page=${page}&rows=${rows}`,{headers:{"Authorization":token}})
     showexpenses(res.data.allExpenses);
-    showpagination(res.data)
+    showpagination(res.data,rows)
 }
 
 function showexpenses(expense){

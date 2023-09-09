@@ -37,7 +37,7 @@ exports.postExpense=async(req,res,next)=>{
 // let rows=2
 exports.getExpenses=async(req,res,next)=>{
     try{
-        const rows=+req.query.rows || 2
+        const rows=+req.query.rows || 5
         const page=+req.query.page || 1;
         const totalItems=await expenses.count();
         const allexpenses= await req.user.getExpenses(
@@ -70,7 +70,6 @@ exports.deleteExpense=async(req,res,next)=>{
         }
         const expenseid=req.params.id
         const expense=await req.user.getExpenses({where:{id:expenseid}},{transaction:t});
-        console.log(expense[0].expenseAmount);
         const totalExpense=Number(req.user.totalExpenses)-Number(expense[0].
             expenseAmount);
         User.update({totalExpenses:totalExpense},{where:{id:req.user.id}},{transaction:t});
@@ -99,6 +98,11 @@ exports.editExpense=async(req,res,next)=>{
         const expenseid=req.params.id
         const expense=await expenses.findByPk(expenseid);
         await expenses.destroy({where:{id:expenseid}});
+
+        const totalExpense=Number(req.user.totalExpenses)-Number(expense.
+            expenseAmount);
+        User.update({totalExpenses:totalExpense},{where:{id:req.user.id}});
+
         await res.status(200).json({editExpense:expense})
     }catch(err){
         res.status(500).json({error:err});
