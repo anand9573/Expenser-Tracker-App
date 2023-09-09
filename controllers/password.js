@@ -78,10 +78,9 @@ exports.resetpassword = async(req, res) => {
                     <div class="container p-2">
                         <div class="card-body w-50 m-auto">
                             <h3 class="text-white text-center p-1">Expense Tracker App</h3>
-                            <form onsubmit="resetpassword(event)" class="form-control bg-dark text-white mb-2">
+                            <form action="http://16.171.202.45/password/updatepassword/${id}" onsubmit="formsubmitted(e)" method="get" class="form-control bg-dark text-white mb-2">
                                 <h5 class="h4 rounded text-center ">Reset Password</h5>
                                 <label for="newpassword" class="form-label">Enter New password</label>
-                                <input name="id" type="hidden" value="${id}" class="form-control bg-light text-success fw-bold mb-3" required></input>
                                 <input name="newpassword" type="password" id="newpassword" class="form-control bg-light text-success fw-bold mb-3" required></input>
                                 <button class="form-control fw-bold text-center" type="submit" id="submit">Change Password</button>
                                 </form>
@@ -92,8 +91,12 @@ exports.resetpassword = async(req, res) => {
                             </ul>
                         </div>
                     </div>
+                    <script>
+                    function formsubmitted(e){
+                        e.preventDefault();
+                    }
+                    </script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
-                    <script src="http://16.171.202.45/js/resetpassword.js"></script>
                 </body>
                 </html>`);
                 res.end();
@@ -115,7 +118,7 @@ exports.updatepassword =async(req, res) => {
                     bcrypt.genSalt(saltRounds, function(err, salt) {
                         bcrypt.hash(newpassword, salt, async(err, hash)=>{
                             await user.update({ password: hash })
-                                res.status(201).json({message: 'Successfuly update the new password',success:true})
+                                res.status(200).json({message: 'Successfuly update the new password',success:true})
                             })
                         });
                     };
