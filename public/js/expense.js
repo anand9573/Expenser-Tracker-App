@@ -182,7 +182,7 @@ try{
 async function editExpense(id){
 try{
     const token=localStorage.getItem('token')
-    const response=await axios.get(`http://16.171.202.45/expense/edit-expense?id=${id}`,{headers:{"Authorization":token}})
+    const response=await axios.get(`http://16.171.202.45/expense/edit-expense`+id,{headers:{"Authorization":token}})
     document.getElementById('expense').value=response.data.editExpense.expenseAmount;
 document.getElementById('description').value=response.data.editExpense.description;
 document.getElementById('category').value=response.data.editExpense.category;
