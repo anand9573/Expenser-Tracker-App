@@ -6,7 +6,12 @@
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "nodemon app.js",
-      "start-server": "node app.js"
+      "start-server": "node app.js",
+      "add": "git add .",
+      "commit": "git commit -m '.'",
+      "push": "git push -u origin master",
+      "stat":"git status"
+      
     },
     "author": ".",
     "license": "ISC",

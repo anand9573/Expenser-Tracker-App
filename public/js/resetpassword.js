@@ -7,15 +7,14 @@ async function resetpassword(e){
         }
         const id=e.target.id.value
         console.log(id);
-        // const urlParams = new URLSearchParams(window.location.search);
-        // const id = urlParams.get('id');
-        const res=await axios.get(`http://16.171.202.45/password/updatepassword/${id}`,resetpassword);
+        const res=await axios.post(`http://16.171.202.45/password/updatepassword/${id}`,resetpassword);
         if(res.status===200){
             const submit=document.getElementById('submit')
         const h5=document.createElement('h5')
         h5.textContent+=`Password Changed Successfully`
         submit.before(h5)
         h5.style.color='green';
+        console.log('done')
         }
     }catch(err){
         const message=async(err)=>{
