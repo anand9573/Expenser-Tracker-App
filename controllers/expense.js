@@ -91,22 +91,50 @@ exports.deleteExpense=async(req,res,next)=>{
 }
 
 exports.editExpense=async(req,res,next)=>{
+    let t=await sequelize.transaction();
     try{
-        if(req.params.id==='undefined'){
-            return res.status(400).json({err:'id not found'})
+        if(req.params.id==='undefined' || req.params.id.length===0 || req.user.id==='undefined' || req.user.id.length===0){
+            if(t){
+                await t.rollback();
+            }
+            return res.status(400).json({err:'id not found',success:false})
         }
         const expenseid=req.params.id
-        const expense=await expenses.findByPk(expenseid);
-        await expenses.destroy({where:{id:expenseid}});
-
-        const totalExpense=Number(req.user.totalExpenses)-Number(expense.
+        const expense=await req.user.getExpenses({where:{id:expenseid}},{transaction:t});
+        const totalExpense=Number(req.user.totalExpenses)-Number(expense[0].
             expenseAmount);
-        User.update({totalExpenses:totalExpense},{where:{id:req.user.id}});
-
-        await res.status(200).json({editExpense:expense})
+        User.update({totalExpenses:totalExpense},{where:{id:req.user.id}},{transaction:t});
+        const editexpense=await expenses.destroy({where:{id:expenseid,userId:req.user.id}},{transaction:t});
+        if(editexpense===0){
+            if(t){
+                await t.rollback();
+            }
+            return res.status(404).json({success:false,message:'Expense not belong to user'});
+        }
+        await t.commit()
+        res.status(200).json({editExpense:expense,success:true})
     }catch(err){
+        if(t){
+            await t.rollback();
+        }
         res.status(500).json({error:err});
     }
+    // try{
+    //     if(req.params.id==='undefined' || req.params.id.length===0 || req.user.id==='undefined' || req.user.id.length===0){
+    //         return res.status(400).json({err:'id not found',success:false})
+    //     }
+    //     const expenseid=req.params.id
+    //     const expense=await expenses.findByPk(expenseid);
+    //     await expenses.destroy({where:{id:expenseid}});
+
+    //     const totalExpense=Number(req.user.totalExpenses)-Number(expense.
+    //         expenseAmount);
+    //     User.update({totalExpenses:totalExpense},{where:{id:req.user.id}});
+
+    //     await res.status(200).json({editExpense:expense})
+    // }catch(err){
+    //     res.status(500).json({error:err});
+    // }
 }
 
 
