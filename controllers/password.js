@@ -94,7 +94,12 @@ exports.resetpassword = async(req, res) => {
                     <script>
                     function formsubmitted(e){
                         e.preventDefault();
-                    }
+                        const submit=document.getElementById('submit')
+            const h5=document.createElement('h5')
+            h5.textContent+="Your Password is Changed Successfully"
+            h5.style.color='green';
+            submit.before(h5)
+            }
                     </script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
                 </body>
@@ -118,7 +123,7 @@ exports.updatepassword =async(req, res) => {
                     bcrypt.genSalt(saltRounds, function(err, salt) {
                         bcrypt.hash(newpassword, salt, async(err, hash)=>{
                             await user.update({ password: hash })
-                                res.status(200).json({message: 'Successfuly update the new password',success:true})
+                                res.status(200).send('<h2>')
                             })
                         });
                     };
