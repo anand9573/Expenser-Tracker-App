@@ -74,7 +74,7 @@ module.exports = {
     },
     sync: async () => {
         try {
-            await sequelize.sync();
+            await sequelize.sync({force:true});
         } catch (err) {
             console.log(err);
         }

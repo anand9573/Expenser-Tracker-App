@@ -181,13 +181,17 @@ try{
 
 async function editExpense(id){
 try{
-    const response=await axios.put(`http://16.171.202.45/expense/edit-expense/${id}`)
-    console.log(response)
+    const response=await axios.put(`http://16.171.202.45/expense/edit-expense/${id}`,{headers:{"Authorization":token}})
     document.getElementById('expense').value=response.data.editExpense.expenseAmount;
 document.getElementById('description').value=response.data.editExpense.description;
 document.getElementById('category').value=response.data.editExpense.category;
     const child=document.getElementById(id)
     child.remove();
+    const decodeToken=parseJwt(token);
+    const premiumuser=decodeToken.ispremiumuser
+    if(premiumuser){
+        showLeaderBoard()
+    }
 }catch(err){
         document.body.innerHTML+='<h4>Something went wrong</h4>'
         console.log(err)
