@@ -93,13 +93,13 @@ exports.deleteExpense=async(req,res,next)=>{
 exports.editExpense=async(req,res,next)=>{
     let t=await sequelize.transaction();
     try{
-        if(req.params.id==='undefined' || req.params.id.length===0 || req.user.id==='undefined' || req.user.id.length===0){
+        if(req.query.id==='undefined' || req.query.id.length===0 || req.user.id==='undefined' || req.user.id.length===0){
             if(t){
                 await t.rollback();
             }
             return res.status(400).json({err:'id not found',success:false})
         }
-        const expenseid=req.params.id
+        const expenseid=req.query.id
         const expense=await req.user.getExpenses({where:{id:expenseid}},{transaction:t});
         const totalExpense=Number(req.user.totalExpenses)-Number(expense[0].
             expenseAmount);
