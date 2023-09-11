@@ -5,7 +5,7 @@ async function setpassword(e){
     try{
         e.preventDefault();
         const email=e.target.email.value;
-        const res=await axios.get(`http://16.171.202.45/password/forgotpassword/${email}`);
+        const res=await axios.get(`http://51.20.27.97/password/forgotpassword/${email}`);
         if(res.status===200){
             const submit=document.getElementById('submit')
             const h5=document.createElement('h5')

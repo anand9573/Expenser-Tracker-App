@@ -5,10 +5,10 @@ async function login(e){
             email:e.target.email.value,
             password:e.target.password.value
         }
-        const res=await axios.post('http://16.171.202.45/user/login',loginDetails);
+        const res=await axios.post('http://51.20.27.97/user/login',loginDetails);
         if(res.status===201){
             localStorage.setItem('token',res.data.token);
-            window.location.href = "http://16.171.202.45/user/expense.html";
+            window.location.href = "http://51.20.27.97/user/expense.html";
         }
     }catch(err){
         const message=async (err)=>{

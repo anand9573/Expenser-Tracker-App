@@ -29,7 +29,7 @@ exports.forgotpassword = async (req, res) => {
                 sender,
                 to: receivers,
                 subject:'Reset Password',
-                htmlContent:`<h1>Expense Tracker App</h1><p>Hi there! Reset the Expense Tracker APP password for your account with email</p><a href="http://16.171.202.45/password/resetpassword/{{params.role}}">Reset Password</a><hr><hr><p>If reset password is not requested by you then contact us Immediately at dummy@gmail.com</p>`,
+                htmlContent:`<h1>Expense Tracker App</h1><p>Hi there! Reset the Expense Tracker APP password for your account with email</p><a href="http://51.20.27.97/password/resetpassword/{{params.role}}">Reset Password</a><hr><hr><p>If reset password is not requested by you then contact us Immediately at dummy@gmail.com</p>`,
                 params:{
                     role:id
                 }
@@ -73,12 +73,12 @@ exports.resetpassword = async(req, res) => {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Reset password</title>
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-                    <link rel="stylesheet" href="http://16.171.202.45/css/main.css">
+                    <link rel="stylesheet" href="http://51.20.27.97/css/main.css">
                 <body >
                     <div class="container p-2">
                         <div class="card-body w-50 m-auto">
                             <h3 class="text-white text-center p-1">Expense Tracker App</h3>
-                            <form action="http://16.171.202.45/password/updatepassword/${id}" onsubmit="formsubmitted(e)" method="get" class="form-control bg-dark text-white mb-2">
+                            <form action="http://51.20.27.97/password/updatepassword/${id}" onsubmit="formsubmitted(e)" method="get" class="form-control bg-dark text-white mb-2">
                                 <h5 class="h4 rounded text-center ">Reset Password</h5>
                                 <label for="newpassword" class="form-label">Enter New password</label>
                                 <input name="newpassword" type="password" id="newpassword" class="form-control bg-light text-success fw-bold mb-3" required></input>
@@ -86,8 +86,8 @@ exports.resetpassword = async(req, res) => {
                                 </form>
                             </form>
                             <ul class="text-center border-0 p-0 m-1">
-                                <li style="list-style-type: none;margin-bottom: 3px;"><a href="http://16.171.202.45/user/signup.html">New User-Sign Up</a></li>
-                                <li style="list-style-type: none;"><a href="http://16.171.202.45/user/login.html">Exisiting User-Login</a></li>
+                                <li style="list-style-type: none;margin-bottom: 3px;"><a href="http://51.20.27.97/user/signup.html">New User-Sign Up</a></li>
+                                <li style="list-style-type: none;"><a href="http://51.20.27.97/user/login.html">Exisiting User-Login</a></li>
                             </ul>
                         </div>
                     </div>
