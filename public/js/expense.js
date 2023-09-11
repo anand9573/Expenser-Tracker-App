@@ -12,7 +12,7 @@ function storedata(e){
     }
     const addexpense=async ()=>{
     const token=localStorage.getItem('token')
-    const response=await axios.post('http://16.171.202.45/expense/add-expense',expensDetails,{headers:{"Authorization":token}})
+    const response=await axios.post('http://51.20.27.97/expense/add-expense',expensDetails,{headers:{"Authorization":token}})
     displaydetails(response.data.newExpenseDetails);
     const decodeToken=parseJwt(token);
     const premiumuser=decodeToken.ispremiumuser
@@ -29,7 +29,7 @@ addexpense()
 
 async function showLeaderBoard(){
     const token=localStorage.getItem('token');
-    const userLeaderBoardArray=await axios.get('http://16.171.202.45/premium/showLeaderBoard',{headers:{"Authorization":token}})
+    const userLeaderBoardArray=await axios.get('http://51.20.27.97/premium/showLeaderBoard',{headers:{"Authorization":token}})
     console.log(userLeaderBoardArray)
     var LeaderboardEle=document.getElementById('premium');
     LeaderboardEle.innerHTML=`<h4 class="text-white p-2">Premium Features<h4><button class="btn fw-bold text-center m-2" onclick="showLeaderBoard()">Leaderboard</button><table class="table-responsive table-bordered table-striped">
@@ -65,7 +65,7 @@ function displaydetails(expense){
 async function updateOutput() {
     const token=localStorage.getItem('token')
     const rows = document.getElementById("options").value;
-    let res=await axios.get(`http://16.171.202.45/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});
+    let res=await axios.get(`http://51.20.27.97/expense/get-expenses?rows=${rows}&page=${page}`,{headers:{"Authorization":token}});
     showexpenses(res.data.allExpenses);
     showpagination(res.data,rows);
 }
@@ -96,7 +96,7 @@ try{
         premiumfeature()
         showLeaderBoard()
     }
-    let res=await axios.get(`http://16.171.202.45/expense/get-expenses?page=${page}&rows=5`,{headers:{"Authorization":token}});
+    let res=await axios.get(`http://51.20.27.97/expense/get-expenses?page=${page}&rows=5`,{headers:{"Authorization":token}});
     showexpenses(res.data.allExpenses);
     showpagination(res.data,5);
 
@@ -140,7 +140,7 @@ function showpagination({
 
 async function getProducts(page,rows){
     const token=localStorage.getItem('token')
-    const res=await axios.get(`http://16.171.202.45/expense/get-expenses?page=${page}&rows=${rows}`,{headers:{"Authorization":token}})
+    const res=await axios.get(`http://51.20.27.97/expense/get-expenses?page=${page}&rows=${rows}`,{headers:{"Authorization":token}})
     showexpenses(res.data.allExpenses);
     showpagination(res.data,rows)
 }
@@ -164,7 +164,7 @@ function showexpenses(expense){
 async function deleteExpense(id){
 try{
     const token=localStorage.getItem('token')
-    const response=await axios.delete(`http://16.171.202.45/expense/delete-expense/${id}`,{headers:{"Authorization":token}})
+    const response=await axios.delete(`http://51.20.27.97/expense/delete-expense/${id}`,{headers:{"Authorization":token}})
     document.getElementById(id).remove()
     console.log(response)
     const decodeToken=parseJwt(token);
@@ -182,7 +182,7 @@ try{
 async function editExpense(id){
 try{
     const token=localStorage.getItem('token')
-    const response=await axios.get(`http://16.171.202.45/expense/edit-expense`+id,{headers:{"Authorization":token}})
+    const response=await axios.get(`http://51.20.27.97/expense/edit-expense`+id,{headers:{"Authorization":token}})
     document.getElementById('expense').value=response.data.editExpense.expenseAmount;
 document.getElementById('description').value=response.data.editExpense.description;
 document.getElementById('category').value=response.data.editExpense.category;
@@ -222,13 +222,13 @@ function showlistdownload(filesdownloaded){
 document.getElementById('rzp-button1').onclick=async function(e){
     try{
         const token=localStorage.getItem('token');
-        const response=await axios.get('http://16.171.202.45/purchase/premiummembership',{headers:{"Authorization":token}});
+        const response=await axios.get('http://51.20.27.97/purchase/premiummembership',{headers:{"Authorization":token}});
         console.log(response);
         var options={
             "key":response.data.key_id,
             "order_id":response.data.order.id,
             "handler":async function(response){
-                const res=await axios.post('http://16.171.202.45/purchase/updatetransactionstatus',{
+                const res=await axios.post('http://51.20.27.97/purchase/updatetransactionstatus',{
                     order_id:options.order_id,
                     payment_id:response.razorpay_payment_id,
                 },{headers:{"Authorization":token} })
@@ -254,7 +254,7 @@ document.getElementById('rzp-button1').onclick=async function(e){
 document.getElementById('download').onclick=async()=>{
     try{
         const token=localStorage.getItem('token')
-        const res=await axios.get('http://16.171.202.45/user/download',{headers:{"Authorization":token} });
+        const res=await axios.get('http://51.20.27.97/user/download',{headers:{"Authorization":token} });
         if(res.status===200){
             var a=document.createElement('a');
             a.href=res.data.fileURL;
@@ -273,7 +273,7 @@ document.getElementById('download').onclick=async()=>{
 document.getElementById('oldownload').onclick=async()=>{
     try{
         const token=localStorage.getItem('token')
-        const res=await axios.get('http://16.171.202.45/user/download',{headers:{"Authorization":token} });
+        const res=await axios.get('http://51.20.27.97/user/download',{headers:{"Authorization":token} });
         if(res.status===200){
             showlistdownload(res.data.filesdownloaded)
         }
