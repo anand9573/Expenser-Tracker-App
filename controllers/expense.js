@@ -34,7 +34,7 @@ exports.postExpense=async(req,res,next)=>{
         res.status(500).json({error:err,success:false}) 
     }
 }
-// let rows=2
+
 exports.getExpenses=async(req,res,next)=>{
     try{
         const rows=+req.query.rows || 5
@@ -119,22 +119,6 @@ exports.editExpense=async(req,res,next)=>{
         }
         res.status(500).json({error:err});
     }
-    // try{
-    //     if(req.params.id==='undefined' || req.params.id.length===0 || req.user.id==='undefined' || req.user.id.length===0){
-    //         return res.status(400).json({err:'id not found',success:false})
-    //     }
-    //     const expenseid=req.params.id
-    //     const expense=await expenses.findByPk(expenseid);
-    //     await expenses.destroy({where:{id:expenseid}});
-
-    //     const totalExpense=Number(req.user.totalExpenses)-Number(expense.
-    //         expenseAmount);
-    //     User.update({totalExpenses:totalExpense},{where:{id:req.user.id}});
-
-    //     await res.status(200).json({editExpense:expense})
-    // }catch(err){
-    //     res.status(500).json({error:err});
-    // }
 }
 
 

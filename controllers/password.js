@@ -1,7 +1,9 @@
 const Sib=require('sib-api-v3-sdk');
-// const sgMail = require('@sendgrid/mail');
+
 const uuid = require('uuid');
+
 const bcrypt = require('bcrypt');
+
 require('dotenv').config();
 const User = require('../model/user');
 const Forgotpassword = require('../model/forgotpassword');
@@ -35,19 +37,7 @@ exports.forgotpassword = async (req, res) => {
                 }
             })
 
-            // await sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-            // const msg = {
-            //     to: email,
-            //     from: 'anandbukyanaik9573@gmail.com',
-            //     subject: 'Reset Password',
-            //     text: 'Hi there! Reset the Expense Tracker APP password for your account with email',
-            //     html: `<a href="http://localhost:3000/password/resetpassword/${id}">Reset password</a>`,
-            // };
-
-            // sgMail.send(msg);
-
-            // Sending a user-friendly response
             res.status(200).json({ message: 'Password reset link sent to your email', success: true });
         }
     } catch (err) {
@@ -62,10 +52,7 @@ exports.resetpassword = async(req, res) => {
         const forgotpasswordrequest=await Forgotpassword.findOne({ where : { id }})
             if(res){
                 await forgotpasswordrequest.update({ active: false});
-                // app.get('/redirect', function(req, res) {
-                //     const id = req.query.id;
-                //     res.redirect(`http://someurl/resetpassword.html/?id=${id}`);
-                //   });
+                
                 res.status(200).send(`<!DOCTYPE html>
                 <html lang="en">
                 <head>
